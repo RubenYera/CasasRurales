@@ -34,6 +34,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $isVerified = false;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $nombre;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $apellidos;
+
+    #[ORM\Column(type: 'integer')]
+    private $telefono;
+
+    #[ORM\Column(type: 'date')]
+    private $fecha_nacimiento;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -115,4 +127,53 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getNombre(): ?string
+    {
+        return $this->nombre;
+    }
+
+    public function setNombre(string $nombre): self
+    {
+        $this->nombre = $nombre;
+
+        return $this;
+    }
+
+    public function getApellidos(): ?string
+    {
+        return $this->apellidos;
+    }
+
+    public function setApellidos(string $apellidos): self
+    {
+        $this->apellidos = $apellidos;
+
+        return $this;
+    }
+
+    public function getTelefono(): ?int
+    {
+        return $this->telefono;
+    }
+
+    public function setTelefono(int $telefono): self
+    {
+        $this->telefono = $telefono;
+
+        return $this;
+    }
+
+    public function getFechaNacimiento(): ?\DateTimeInterface
+    {
+        return $this->fecha_nacimiento;
+    }
+
+    public function setFechaNacimiento(\DateTimeInterface $fecha_nacimiento): self
+    {
+        $this->fecha_nacimiento = $fecha_nacimiento;
+
+        return $this;
+    }
+
 }
