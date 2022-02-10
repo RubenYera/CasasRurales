@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -45,6 +47,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'date')]
     private $fecha_nacimiento;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Valoracion::class)]
+    private $valoraciones;
+
+    public function __construct()
+    {
+        $this->valoraciones = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -172,6 +182,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFechaNacimiento(\DateTimeInterface $fecha_nacimiento): self
     {
         $this->fecha_nacimiento = $fecha_nacimiento;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Valoracion[]
+     */
+    public function getValoraciones(): Collection
+    {
+        return $this->valoraciones;
+    }
+
+    public function addValoracione(Valoracion $valoracione): self
+    {
+        if (!$this->valoraciones->contains($valoracione)) {
+            $this->valoraciones[] = $valoracione;
+            $valoracione->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeValoracione(Valoracion $valoracione): self
+    {
+        if ($this->valoraciones->removeElement($valoracione)) {
+            // set the owning side to null (unless already changed)
+            if ($valoracione->getUser() === $this) {
+                $valoracione->setUser(null);
+            }
+        }
 
         return $this;
     }
