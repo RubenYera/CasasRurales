@@ -4,46 +4,55 @@ $(function(){
     // $( ".fecha" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
 
     var disabledDays = [
-        "17-2-2022", "25-12-2016", "26-12-2016",
-        "4-4-2017", "5-4-2017", "6-4-2017", "6-4-2016", "7-4-2017", "8-4-2017", "9-4-2017"
+        "2-17-2022", "2-25-2022"
     ];
 
-    var dateFormat = "mm/dd/yy",
-    from = $( "#fechaIni" )
+    var from = $( "#fechaIni" )
       .datepicker({
         changeMonth: true,
-        numberOfMonths: 3,
-        minDate: 0
+        numberOfMonths: 2,
+        minDate: 0,
+        firstDay:1
       }
       )
       .on( "change", function() {
-        to.datepicker( "option", "minDate", getDate( this ) );
-        console.log($("#fechaIni").val());
+        var fecha = new Date(from.datepicker("getDate"));
+        fecha.setDate(fecha.getDate()+1);
+        if(to.datepicker("getDate")==null){
+          to.datepicker("setDate", fecha )
+        }
+        from.datepicker("option","maxDate",from.datepicker("getDate"))
+        to.datepicker( "option", "minDate", fecha );
+
+        console.log();
       }),
     to = $( "#fechaFin" ).datepicker({
       changeMonth: true,
-      numberOfMonths: 3
+      numberOfMonths: 2,
+      minDate: 0,
+      firstDay:1
     })
     .on( "change", function() {
-        if(getDate(from)==null){
-            
-            from.datepicker("setDate", new Date(getDate(this)-1))
+      var fecha = new Date(to.datepicker("getDate"));
+      fecha.setDate(fecha.getDate()-1);
+        if(from.datepicker("getDate")==null){
+          from.datepicker("setDate", fecha)
         }
-      from.datepicker( "option", "maxDate", getDate( this ) );
+      
+      to.datepicker("option","minDate",to.datepicker("getDate"))
+      from.datepicker( "option", "maxDate", fecha );
     });
 
-  function getDate( element ) {
-    var date;
-    try {
-      date = $.datepicker.parseDate( dateFormat, element.value );
-    } catch( error ) {
-      date = null;
-    }
+  // function getDate( element ) {
+  //   var date;
+  //   try {
+  //     date = $.datepicker.parseDate( dateFormat, element.value );
+  //   } catch( error ) {
+  //     date = null;
+  //   }
 
-    return date;
-  }
-
-
+  //   return date;
+  // }
 
 // //replace these with the id's of your datepickers
 // $("#fechaIni,#fechaFin").datepicker({
@@ -51,23 +60,23 @@ $(function(){
 
 // });
 
-    function bloqueaDiasIni(date){ 
-        var day = date.getDay();
-        var string = $.datepicker.formatDate('d-m-yy', date);
-        var isDisabled = ($.inArray(string, disabledDays) != -1);
+//     function bloqueaDias(date){ 
+//         var day = date.getDay();
+//         var string = $.datepicker.formatDate('mm-dd-yyyy', date);
+//         var isDisabled = ($.inArray(string, disabledDays) != -1);
     
-        //day != 0 disables all Sundays
-        return [!isDisabled];
-    }
+//         //day != 0 disables all Sundays
+//         return [!isDisabled];
+//     }
 
-    function bloqueaDiasFin(date){ 
-        var day = date.getDay();
-        var hoy = new Date();
-        var fIni = getDate($("#fechaIni"));
-        var string = $.datepicker.formatDate('d-m-yy', date);
-        var isDisabled = ($.inArray(string, disabledDays) != -1 || hoy>date ||date<=fIni);
+//     function bloqueaDiasFin(date){ 
+//         var day = date.getDay();
+//         var hoy = new Date();
+//         var fIni = getDate($("#fechaIni"));
+//         var string = $.datepicker.formatDate('d-m-yy', date);
+//         var isDisabled = ($.inArray(string, disabledDays) != -1 || hoy>date ||date<=fIni);
     
-        //day != 0 disables all Sundays
-        return [!isDisabled];
-    }
+//         //day != 0 disables all Sundays
+//         return [!isDisabled];
+//     }
 })

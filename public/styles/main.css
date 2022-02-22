@@ -1279,6 +1279,10 @@ ol {
   margin-left: 40px;
 }
 
+.header .login-button span{
+  display: inline-block;
+}
+
 .header .login-button ul {
   padding: 14px 20px;
   border-radius: 30px;
@@ -1479,10 +1483,16 @@ ol {
 
 .navbar-brand {
   padding: 0;
+  font-size: 2rem;
+  color: #000000;
+}
+
+.navbar-brand:hover{
+color: #5830E0;
 }
 
 .navbar-brand img {
-  width: 190px;
+  width: 60px;
 }
 
 .mobile-menu-btn {
@@ -1907,7 +1917,7 @@ ol {
 
 .header-button {
   display: inline-block;
-  margin-left: 10px;
+  /* margin-left: 10px; */
 }
 
 .header-button .btn i {
@@ -1923,7 +1933,7 @@ ol {
     Hero Area CSS
 ========================================*/
 .hero-area {
-  background-image: url("../images/hero/hero-bg.jpeg");
+  background-image: url("../images/hero/apartamento.jpeg");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -2054,6 +2064,11 @@ ol {
   margin-bottom: 18px;
 }
 
+.Fecha-Alojamiento{
+  padding: 0;
+  margin-top: 20px;
+}
+
 .search-form.style2 .btn {
   margin: 0;
 }
@@ -2180,7 +2195,7 @@ ol {
   font-weight: 500;
   font-size: 15px;
   color: #5830E0;
-  background-color: #f9f9f9;
+  background-color: #afacac;
   padding: 5px 20px;
   border-radius: 4px;
 }
@@ -3515,7 +3530,7 @@ blockquote .shape {
   border: 1px solid #eee;
   border-radius: 6px;
   position: relative;
-  z-index: 9;
+  z-index: 3;
   background: #fff;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
@@ -3570,7 +3585,8 @@ blockquote .shape {
 }
 
 .categories .single-cat .icon img {
-  width: 40px;
+  width: 80px;
+  height: 50px;
 }
 
 .categories .single-cat h3 {
@@ -4581,7 +4597,11 @@ blockquote .shape {
   }
 
   .navbar-brand img {
-    width: 170px;
+    width: 40px;
+  }
+
+  .navbar-brand {
+    font-size: 1.5rem;
   }
 
   .sticky .navbar .navbar-nav .nav-item .sub-menu .nav-item a {
@@ -4655,7 +4675,8 @@ blockquote .shape {
   }
 
   .categories .single-cat .icon img {
-    width: 35px;
+    width: 80px;
+    height: 50px;
   }
 
   .our-achievement {
@@ -4951,7 +4972,11 @@ blockquote .shape {
   }
 
   .navbar-brand img {
-    width: 170px;
+    width: 40px;
+  }
+  
+  .navbar-brand {
+    font-size: 1.5rem;
   }
 
   .header {
@@ -4988,7 +5013,7 @@ blockquote .shape {
   }
 
   .navbar-brand img {
-    width: 170px;
+    width: 40px;
   }
 
   .breadcrumbs .bread-list {
@@ -5137,7 +5162,8 @@ blockquote .shape {
   }
 
   .categories .single-cat .icon img {
-    width: 35px;
+    width: 80px;
+    height: 50px;
   }
 
   .items-grid.custom-padding {

@@ -3,10 +3,11 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
-use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
@@ -27,12 +28,13 @@ class UserCrudController extends AbstractCrudController
         // ];
 
         return [
-            IdField::new('id'),
             EmailField::new('email'),
             TextField::new('nombre'),
-            TextField::new('apellido'),
+            TextField::new('apellidos'),
+            ArrayField::new('roles'),
+            TextField::new('password')->hideOnIndex(),
             IntegerField::new('telefono'),
-            DateTimeField::new('fecha_nacimiento')
+            DateField::new('fecha_nacimiento')
         ];
     }
 }

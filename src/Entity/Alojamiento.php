@@ -43,15 +43,34 @@ class Alojamiento
     #[ORM\OneToMany(mappedBy: 'alojamiento', targetEntity: Valoracion::class)]
     private $valoraciones;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $nombre;
+
+    #[ORM\OneToMany(mappedBy: 'alojamiento', targetEntity: Reserva::class)]
+    private $reservas;
+
     public function __construct()
     {
         $this->Comodidades = new ArrayCollection();
         $this->valoraciones = new ArrayCollection();
+        $this->reservas = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getNombre(): ?string
+    {
+        return $this->nombre;
+    }
+
+    public function setNombre(string $nombre): self
+    {
+        $this->nombre = $nombre;
+
+        return $this;
     }
 
     public function getDescripcion(): ?string
@@ -191,4 +210,39 @@ class Alojamiento
 
         return $this;
     }
+
+    public function __toString() {
+        return $this->nombre;
+    }
+
+    /**
+     * @return Collection|Reserva[]
+     */
+    public function getReservas(): Collection
+    {
+        return $this->reservas;
+    }
+
+    public function addReserva(Reserva $reserva): self
+    {
+        if (!$this->reservas->contains($reserva)) {
+            $this->reservas[] = $reserva;
+            $reserva->setAlojamiento($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReserva(Reserva $reserva): self
+    {
+        if ($this->reservas->removeElement($reserva)) {
+            // set the owning side to null (unless already changed)
+            if ($reserva->getAlojamiento() === $this) {
+                $reserva->setAlojamiento(null);
+            }
+        }
+
+        return $this;
+    }
+
 }
