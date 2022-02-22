@@ -17,8 +17,30 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ComodidadController extends AbstractController
 {
-    #[Route('/comodidad/{id}', name: 'comodidad')]
-    public function index(ManagerRegistry $doctrine,int $id): Response
+    #[Route('/JSONcomodidades', name: 'JSON_Comodidades')]
+    public function JSON_Comodidades(ManagerRegistry $doctrine): Response
+    {
+        $entityManager = $doctrine->getManager();
+
+        $comodidades = $entityManager->getRepository(Comodidad::class)->findAll();
+
+        $defaultContext = [
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+                return $object->getId();
+            },
+        ];
+
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer(null, null, null, null, null, null, $defaultContext)];
+
+        $serializer = new Serializer($normalizers, $encoders);
+        
+        return (new JsonResponse())->setContent($serializer->serialize($comodidades, 'json'));
+
+    }
+
+    #[Route('/JSONcomodidad/{id}', name: 'JSON_comodidad')]
+    public function JSON_Comodidad(ManagerRegistry $doctrine,int $id): Response
     {
         $comodidad = $entityManager->getRepository(Comodidad::class)->find($id);
 
