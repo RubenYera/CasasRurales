@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Entity\Alojamiento;
 use App\Entity\Comodidad;
 use App\Entity\Tipo;
+use App\Entity\Reserva;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -86,7 +87,13 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Listado', 'fas fa-list', User::class),
             MenuItem::linkToRoute('Alta Masiva', 'fas fa-plus', 'Alta_Masiva_Usuario'),
         ]);
-        yield MenuItem::linkToCrud('Alojamientos', 'fas fa-building', Alojamiento::class);
+        yield MenuItem::subMenu('Alojamientos', 'fas fa-building')->setSubItems([
+            MenuItem::linkToCrud('Listado', 'fas fa-list', Alojamiento::class),
+            MenuItem::linkToCrud('Reservas', 'fas fa-calendar', Reserva::class),
+            
+        ]);
+        // yield MenuItem::linkToCrud('Alojamientos', 'fas fa-building', Alojamiento::class);
+        // yield MenuItem::linkToCrud('Reservas', 'fas fa-calendar', Reserva::class);
         yield MenuItem::linkToCrud('Comodidades', 'fas fa-couch', Comodidad::class);
         yield MenuItem::linkToCrud('Tipos', 'fas fa-tags', Tipo::class);
         yield MenuItem::linkToLogout('Salir', 'fa fa-door-open');

@@ -19,7 +19,7 @@ class ComodidadCrudController extends AbstractCrudController
     {
         return [
             TextField::new('nombre'),
-            AssociationField::new('alojamientos')->setCrudController(AlojamientoCrudController::class)
+            AssociationField::new('alojamientos')->setCrudController(AlojamientoCrudController::class)->hideOnForm()
         ];
     }
 
