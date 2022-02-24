@@ -38,7 +38,7 @@ class AlojamientoController extends AbstractController
         return $this->render('alojamiento/alojamiento.html.twig', ['alojamiento' => $alojamiento, 'notas' => $notas]);
     }
 
-    #[Route('/listadoAlojamiento', name: 'Listado_Alojamiento')]
+    #[Route('/listadoAlojamientos', name: 'Listado_Alojamientos')]
     public function listado(ManagerRegistry $doctrine): Response
     {
         // $entityManager = $doctrine->getManager();

@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html">Inicio</a></li>
                         <li>Alojamientos</li>
                     </ul>
                 </div>
@@ -20,5 +20,64 @@
     </div>
     <!-- End Breadcrumbs -->
     <section class="about-us section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-3 col-md-3 col-12">
+                    <div class="border border-primary rounded">
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-9 col-12 ">
+                    <div class="border border-primary rounded" id="cAlojamientos">
+                        <div class="spinner">
+
+                        <div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
+
+        <!-- Start Clients Area -->
+    <div class="client-logo-section">
+        <div class="container">
+            <div class="client-logo-wrapper">
+                <div class="client-logo-carousel d-flex align-items-center justify-content-between">
+                    <div class="client-logo">
+                        <img src="{{asset('images/clients/client1.svg')}}" alt="#">
+                    </div>
+                    <div class="client-logo">
+                        <img src="{{asset('images/clients/client2.svg')}}" alt="#">
+                    </div>
+                    <div class="client-logo">
+                        <img src="{{asset('images/clients/client3.svg')}}" alt="#">
+                    </div>
+                    <div class="client-logo">
+                        <img src="{{asset('images/clients/client4.svg')}}" alt="#">
+                    </div>
+                    <div class="client-logo">
+                        <img src="{{asset('images/clients/client5.svg')}}" alt="#">
+                    </div>
+                    <div class="client-logo">
+                        <img src="{{asset('images/clients/client2.svg')}}" alt="#">
+                    </div>
+                    <div class="client-logo">
+                        <img src="{{asset('images/clients/client3.svg')}}" alt="#">
+                    </div>
+                    <div class="client-logo">
+                        <img src="{{asset('images/clients/client4.svg')}}" alt="#">
+                    </div>
+                    <div class="client-logo">
+                        <img src="{{asset('images/clients/client5.svg')}}" alt="#">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Clients Area -->
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/listadoAlojamientos.js')}}"></script>
 {% endblock %}

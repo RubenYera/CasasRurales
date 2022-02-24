@@ -60,7 +60,7 @@ class AlojamientoRepository extends ServiceEntityRepository
         $stmt = $conn->prepare($sql);
         $resultSet = $stmt->executeQuery();
         $array = $resultSet->fetchAll();
-        var_dump($array);
+        // var_dump($array);
         // returns an array of arrays (i.e. a raw data set)
         return $array;
     }
@@ -68,24 +68,64 @@ class AlojamientoRepository extends ServiceEntityRepository
     /**
      * @return Alojamiento Returns an array of Notas medias de las valoraciones
      */
-    public function alojamientoPorComodidad(int $id): array
+    public function alojamientosComodidades(array $comodidades): array
     {
         $conn = $this->getEntityManager()->getConnection();
 
         $sql = 'SELECT a.id, a.nombre as nombre_Alojamiento, a.descripcion, a.precio, a.fianza, 
                         a.habitaciones, a.camas, a.fotos, t.id, t.nombre as nombre_Tipo, comodidades
-                    FROM casasrurales.alojamiento a join casasrurales.tipo t on a.tipo_id=t.id
-                    join (select ac.alojamiento_id, group_concat(c.nombre) as comodidades 
-                                from alojamiento_comodidad ac 
-                                join comodidad c on ac.comodidad_id=c.id 
-                                group by ac.alojamiento_id)as tabla 
-                    on a.id=tabla.alojamiento_id
-            ';
+                FROM casasrurales.alojamiento a join casasrurales.tipo t on a.tipo_id=t.id
+                                                join (select ac.alojamiento_id, group_concat(c.nombre) as comodidades 
+                                                        from alojamiento_comodidad ac 
+                                                        join comodidad c on ac.comodidad_id=c.id 
+                                                        group by ac.alojamiento_id)as tabla 
+                                                on a.id=tabla.alojamiento_id ';
+        if(!empty($comodidades)){
+            $sql.='where ';
+            for($i=0;$i<count($comodidades);$i++){
+                if($i!=0){
+                    $sql.=' and ';
+                }
+                $sql.="comodidades like '%".$comodidades[$i]."%' ";
+
+            }
+        }
+        // var_dump($sql);
+        
+        // $array=array();
         $stmt = $conn->prepare($sql);
         $resultSet = $stmt->executeQuery();
         $array = $resultSet->fetchAll();
-        var_dump($array);
-        // returns an array of arrays (i.e. a raw data set)
+        // var_dump($array);
+        return $array;
+    }
+
+    /**
+     * @return Alojamiento Returns an array of Notas medias de las valoraciones
+     */
+    public function alojamientosTipo(string $tipo): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = 'SELECT a.id, a.nombre as nombre_Alojamiento, a.descripcion, a.precio, a.fianza, 
+                        a.habitaciones, a.camas, a.fotos, t.id, t.nombre as nombre_Tipo, comodidades
+                FROM casasrurales.alojamiento a join casasrurales.tipo t on a.tipo_id=t.id
+                                                join (select ac.alojamiento_id, group_concat(c.nombre) as comodidades 
+                                                        from alojamiento_comodidad ac 
+                                                        join comodidad c on ac.comodidad_id=c.id 
+                                                        group by ac.alojamiento_id)as tabla 
+                                                on a.id=tabla.alojamiento_id ';
+        if($tipo!=""){
+            $sql.="where t.nombre like '%".$tipo."%'";
+
+        }
+        // var_dump($sql);
+        
+        // $array=array();
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+        $array = $resultSet->fetchAll();
+        // var_dump($array);
         return $array;
     }
 
